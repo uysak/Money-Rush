@@ -6,17 +6,18 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject MoneyObj;
     public GameObject SpawnedMoney;
+    private GameObject CollectibleObjects;
 
     private int minSpawnPosX = - 3;
     private int maxSpawnPosX = 3;
 
     private int spawnPosX;
 
-    private int lastMoneyObjPosZ = 120;
+    private int lastMoneySpawnPosZ = 120;
 
     void Start()
     {
-        
+        CollectibleObjects = GameObject.Find("CollectibleObjects");
     }
 
     // Update is called once per frame
@@ -27,10 +28,10 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnMoney()
     {
-        lastMoneyObjPosZ += 5;
+        lastMoneySpawnPosZ += 5;
         spawnPosX = Random.RandomRange(minSpawnPosX, maxSpawnPosX);
         
-        SpawnedMoney = Instantiate(MoneyObj, new Vector3(spawnPosX, 0.3f, lastMoneyObjPosZ),MoneyObj.transform.rotation);
+        SpawnedMoney = Instantiate(MoneyObj, new Vector3(spawnPosX, 0.3f, lastMoneySpawnPosZ),MoneyObj.transform.rotation, CollectibleObjects.transform);
 //        SpawnedMoney.AddComponent<MoneyController>();
 
     }

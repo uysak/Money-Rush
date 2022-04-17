@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class CollectDetect : MonoBehaviour
 {
-
+    private GameObject CollectedObjects;
     private SpawnManager spawnManagerScript;
 
     private void Start()
     {
         spawnManagerScript = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
+        CollectedObjects = GameObject.Find("CollectedObjects");
     }
     void Update()
     {
@@ -20,6 +21,8 @@ public class CollectDetect : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Collectible")) 
         {
+            other.gameObject.transform.SetParent(CollectedObjects.transform);
+
             Debug.LogError("detected");
             spawnManagerScript.SpawnMoney();
 
