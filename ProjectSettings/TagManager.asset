@@ -8,6 +8,8 @@ TagManager:
   - Collected
   - SpawnManager
   - Road
+  - Detected
+  - Obstacle
   layers:
   - Default
   - TransparentFX

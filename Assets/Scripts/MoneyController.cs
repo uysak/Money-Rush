@@ -26,7 +26,7 @@ public class MoneyController : MonoBehaviour
         if(differenceBetweenMoneyandPlayer > 10)
         {
             Destroy(this.gameObject);
-            spawnManagerScript.SpawnMoney();
+      //      spawnManagerScript.SpawnMoney();
         }
     }
 
