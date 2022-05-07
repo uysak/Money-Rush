@@ -10,6 +10,10 @@ TagManager:
   - Road
   - Detected
   - Obstacle
+  - GameManager
+  - MoneyBar
+  - CollectedObjects
+  - FinishLine
   layers:
   - Default
   - TransparentFX

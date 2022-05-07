@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectedObj: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &7225702379272573006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb4f638722573c4ebc37e968419db67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoneyBrokeParticleObj: {fileID: 3886780025101189750, guid: eee53f52b63f65c4e8431d7f63bfe6e5, type: 3}
+  MoneyBrokeParticleObj: {fileID: 3886780025101189750, guid: c64bae6f11f32f54c825c0af0ce941c6, type: 3}
 --- !u!65 &7225702379272573007
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -119,7 +120,6 @@ MonoBehaviour:
   movementValue: 0
   movementSpeed: 0
   objectPos: {x: 0, y: 0, z: 0}
-  pos: {x: 0, y: 0, z: 0}
 --- !u!1001 &7225702378436900082
 PrefabInstance:
   m_ObjectHideFlags: 0

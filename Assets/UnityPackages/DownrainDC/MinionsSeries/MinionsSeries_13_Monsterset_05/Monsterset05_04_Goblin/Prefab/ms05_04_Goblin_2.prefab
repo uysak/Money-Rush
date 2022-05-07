@@ -1324,6 +1324,7 @@ GameObject:
   - component: {fileID: 1805821679}
   - component: {fileID: 1805821677}
   - component: {fileID: 1805821680}
+  - component: {fileID: 7220096955730963624}
   m_Layer: 0
   m_Name: ms05_04_Goblin_2
   m_TagString: Obstacle
@@ -1393,3 +1394,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectedMoney: 0
   animatorObstacle: {fileID: 1805821677}
+--- !u!114 &7220096955730963624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3360821480099300718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a096403f3f7ec9344b004805724d62a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
