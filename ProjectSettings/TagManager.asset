@@ -14,6 +14,8 @@ TagManager:
   - MoneyBar
   - CollectedObjects
   - FinishLine
+  - AnimationManager
+  - Boss
   layers:
   - Default
   - TransparentFX

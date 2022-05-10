@@ -17,7 +17,6 @@ public class MoneyBar : MonoBehaviour
 
     public void SetMaxMoney(int necessaryMoney)
     {
-        this.necessaryMoney = necessaryMoney;
         slider.maxValue = necessaryMoney;
     }
     public void SetCurrentMoney(int currentMoney)
