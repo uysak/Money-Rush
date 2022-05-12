@@ -16,6 +16,7 @@ TagManager:
   - FinishLine
   - AnimationManager
   - Boss
+  - GameOverPanel
   layers:
   - Default
   - TransparentFX

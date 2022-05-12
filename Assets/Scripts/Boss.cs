@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-
-    // 227.7
     private GameObject playerObj;
     public bool walkToPlayer;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");   
     }
@@ -17,7 +15,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.LogWarning(Vector3.Distance(this.transform.position, playerObj.transform.position));
+      //Debug.LogWarning(Vector3.Distance(this.transform.position, playerObj.transform.position));
         this.transform.LookAt(playerObj.transform);
 
         if(walkToPlayer == true)
