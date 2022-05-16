@@ -10,10 +10,17 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
+        Move();
+    }
+
+
+    private void Move()
+    {
         horizontalInput = Input.GetAxis("Horizontal");
 
         this.transform.Translate(horizontalInput * horizontalMovementSpeed * Time.deltaTime,
                                  0,
                                  VerticalMovementSpeed * Time.deltaTime);
     }
+
 }

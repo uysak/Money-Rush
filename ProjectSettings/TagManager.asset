@@ -17,6 +17,7 @@ TagManager:
   - AnimationManager
   - Boss
   - GameOverPanel
+  - StartGamePanel
   layers:
   - Default
   - TransparentFX

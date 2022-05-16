@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 
 public class GameManager : MonoBehaviour
 {
+    public bool isGameStarted;
 
-    private Vector3 playerStartPos;
+    public Vector3 playerStartPos;
+    public Quaternion playerStartRotation;
 
     private int necessaryMoney;
     private int currentMoney;
     public bool isGameFailed;
+    public bool isAssignmentSuccesful;
+
 
     private GameObject Canvas;
     private GameObject gameOverPanel;
+    private GameObject PlayerObj;
+    private GameObject BossObj;
 
     private AnimationController animationControllerScript;
 
@@ -24,38 +33,32 @@ public class GameManager : MonoBehaviour
     private GameObject CollectedObjects;
     private MoneyBarController moneyBarScript;
 
+    public Scene sceneTest;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerStartPos = GameObject.Find("Player").transform.position;
-        Canvas = GameObject.Find("Canvas");
+        sceneTest = SceneManager.GetSceneByBuildIndex(1);
+        PlayerObj = GameObject.FindGameObjectWithTag("Player");
+        playerStartPos = PlayerObj.transform.position;
+        playerStartRotation = PlayerObj.transform.rotation;
 
         animationControllerScript = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationController>();
-        bossScript = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
-
-        gameOverPanel = Canvas.transform.GetChild(1).gameObject;
 
         necessaryMoney = 2000;
         currentMoney = 0;
-
-        moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
-        CollectedObjects = GameObject.FindGameObjectWithTag("CollectedObjects");
-
-        moneyBarScript.SetMaxMoney(necessaryMoney);
-
-
     }
-    
-    private void Awake()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
-        AnimateControl();
+        if(isGameStarted == true)
+        {
+            AnimateControl();
+        }
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && isAssignmentSuccesful == false)
+        {
+            StartGame();
+        }
     }
-
     public void MoneyCollide(GameObject HitterObj, GameObject HittenObj)
     {
         {
@@ -73,15 +76,15 @@ public class GameManager : MonoBehaviour
 
             HittenObj.gameObject.GetComponent<CollisionController>().enabled = true;
 
-            if(CollectedObjects.transform.childCount == 2)
+            if(CollectedObjects.transform.childCount == 1)
             {
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = -0.5f;
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 1f;
+                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = -0.45f;
+                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0f;
             }
             else
             {
                 HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = 0.5f;
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0.1f;
+                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0.04f;
             }
 
             moneyBarScript.SetCurrentMoney(currentMoney += 100);
@@ -90,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void AnimateControl()
     {
-        if (CollectedObjects.transform.childCount == 1)
+        if (CollectedObjects.transform.childCount == 0)
         {
             animationControllerScript.PlayRunAnimation();
         }
@@ -99,10 +102,10 @@ public class GameManager : MonoBehaviour
             animationControllerScript.PlayCarryAnimation();
          //   animatorPlayer.SetBool("isHaveMoney", true);
 
-        if (isGameFailed == true)
-        {
-            animationControllerScript.PlayPrayAnimation();
-        }
+        //if (isGameFailed == true)
+        //{
+        //    animationControllerScript.PlayPrayAnimation();
+        //}
 
     }
     public void ObstacleCollide(GameObject HitterObj, GameObject ObstacleObj)
@@ -113,6 +116,7 @@ public class GameManager : MonoBehaviour
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShakeEffect>().ShakeCamera();
 
         moneyBarScript.SetCurrentMoney(currentMoney -= 100);
+
 
         if(!HitterObj.CompareTag("Player"))
         {
@@ -125,19 +129,17 @@ public class GameManager : MonoBehaviour
 
     public void FinishLine(GameObject HitterObj)
     {
+        Debug.LogWarning("finishline");
         Instantiate(PayMoneyParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
         if (HitterObj.CompareTag("Player"))
         {
             if(currentMoney <= necessaryMoney)
             {
 //                isGameFailed = true;
-                HitterObj.GetComponent<PlayerMovementController>().enabled = false;
-
                 animationControllerScript.PlayPrayAnimation();
                 animationControllerScript.PlayBossYellingAnimation();
-
-
-                gameOverPanel.SetActive(true);
+                PlayerObj.transform.LookAt(BossObj.transform);
+                GameOver();
             }
         }
         else
@@ -148,9 +150,39 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-    private void StartGame()
+    public void StartGame()
     {
-        GameObject.Find("Player").transform.position = playerStartPos;
+        Debug.LogWarning("start calisti");
+        animationControllerScript.PlayRunAnimation();
+        SetAssignmentGameScene();
+        PlayerObj.GetComponent<CollisionController>().enabled = true;
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
+        //    PlayerObj.transform.SetParent(CollectedObjects.transform);
+        //PlayerObj.transform.position = new Vector3(5.5f, -36.55f, -56.40f);
+        //  PlayerObj.transform.Rotate(new Vector3(0, 180, 0));
+        PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
+        isGameStarted = true;
     }
+
+    public void GameOver()
+    {
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
+        gameOverPanel.SetActive(true);
+        isGameStarted = false;
+        animationControllerScript.PlayPrayAnimation();
+    }
+
+    public void SetAssignmentGameScene()
+    {
+        BossObj = GameObject.FindGameObjectWithTag("Boss");
+        bossScript = BossObj.GetComponent<Boss>();
+        Canvas = GameObject.Find("Canvas");
+        gameOverPanel = Canvas.transform.GetChild(2).gameObject;
+        moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
+        CollectedObjects = GameObject.FindGameObjectWithTag("CollectedObjects");
+        moneyBarScript.SetMaxMoney(necessaryMoney);
+
+        isAssignmentSuccesful = true;
+    }
+
 }

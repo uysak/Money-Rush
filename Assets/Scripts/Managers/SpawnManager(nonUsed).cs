@@ -20,12 +20,6 @@ public class SpawnManager : MonoBehaviour
         CollectibleObjects = GameObject.Find("CollectibleObjects");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SpawnMoney()
     {
         lastMoneySpawnPosZ += 5;
