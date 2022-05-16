@@ -51,4 +51,10 @@ public class AnimationController : MonoBehaviour
         obstacleAnimator = obstacle.GetComponent<Animator>();
         obstacleAnimator.Play("Base Layer.Attack");
     }
+    public void PlayFallingDownAnimation()
+    {
+        playerAnimator.SetBool("isCollisionObstacle", true);
+        playerAnimator.SetBool("isGameStarted", false);
+        playerAnimator.SetBool("isHaveMoney", false);
+    }
 }

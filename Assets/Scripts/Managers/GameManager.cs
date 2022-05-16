@@ -120,9 +120,17 @@ public class GameManager : MonoBehaviour
 
         if(!HitterObj.CompareTag("Player"))
         {
+            moneyBarScript.SetCurrentMoney(currentMoney -= 100);
             HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true;
             // The object at the end of the queue has been destroyed, we are adding an object detection feature to the object it is connected to.
             Destroy(HitterObj);
+        }
+        else if(HitterObj.CompareTag("Player"))
+        {
+            animationControllerScript.PlayFallingDownAnimation();
+            gameOverPanel.SetActive(true);
+            PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
+            isGameStarted = false;
         }
 
     }
