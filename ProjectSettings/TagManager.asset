@@ -18,6 +18,7 @@ TagManager:
   - Boss
   - GameOverPanel
   - StartGamePanel
+  - InputManager
   layers:
   - Default
   - TransparentFX

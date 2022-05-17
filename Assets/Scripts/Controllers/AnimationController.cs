@@ -29,6 +29,7 @@ public class AnimationController : MonoBehaviour
         playerAnimator.SetBool("isGameStarted", true);
         playerAnimator.SetBool("isHaveMoney", false);
         playerAnimator.SetBool("isGameFailed", false);
+        playerAnimator.SetBool("isCollisionObstacle", false);
     }
 
     public void PlayCarryAnimation()

@@ -31,21 +31,11 @@ public class UIController : MonoBehaviour
 
         GameOverPanelObj = GameObject.FindGameObjectWithTag("GameOverPanel");
         GameOverPanelObj.SetActive(false);
-
-
-
-
-       // gameManagerScript.isGameStarted = false;
         gameManagerScript.isAssignmentSuccesful = false;
-
-      //  MoneyBarObj.SetActive(false);
-
-
-     //   PlayerObj.SetActive(false);
         SceneManager.LoadScene(1);
-     //   PlayerObj.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").transform.position = gameManagerScript.playerStartPos;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
+        PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
     }
 
     public void StartGame()
