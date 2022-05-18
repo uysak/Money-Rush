@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
         isGameStarted = true;
+        currentMoney = 0;
+        moneyBarScript.SetCurrentMoney(0);
     }
 
     public void GameOver()

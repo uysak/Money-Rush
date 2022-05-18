@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
 {
-    [SerializeField] Animator animatorObstacle;
     private GameObject PlayerObj;
 
     private void Start()
