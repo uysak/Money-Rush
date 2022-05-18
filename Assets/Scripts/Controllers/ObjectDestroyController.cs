@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ObjectDestroyController : MonoBehaviour
 {
-    SpawnManager spawnManagerScript;
-
     private GameObject PlayerObj;
     private float differenceBetweenMoneyandPlayer;
 

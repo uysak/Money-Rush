@@ -28,7 +28,6 @@ public class UIController : MonoBehaviour
 
     public void RestartGame()
     {
-
         GameOverPanelObj = GameObject.FindGameObjectWithTag("GameOverPanel");
         GameOverPanelObj.SetActive(false);
         gameManagerScript.isAssignmentSuccesful = false;

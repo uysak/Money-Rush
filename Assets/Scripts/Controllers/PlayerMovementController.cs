@@ -16,7 +16,8 @@ public class PlayerMovementController : MonoBehaviour
     }
     void Update()
     {
-        Move();
+        Move2();
+        Run();
         CheckBorder();
     }
 
@@ -64,10 +65,27 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Move2()
     {
-        Debug.LogWarning("calis");
-        this.transform.Translate(inputManagerScript.getHorizontalInput() / 100, 0, 0); //+= Vector3.Lerp(this.transform.position, new Vector3(this.transform.position.x + inputManagerScript.getHorizontalInput() / 50, 0f,0f),0.5f);
-        inputManagerScript.changed = false;   
+        horizontalInputKeyboard = Input.GetAxis("Horizontal");
+        if (horizontalInputKeyboard != 0)
+        {
+            this.transform.Translate(horizontalInputKeyboard * horizontalMovementSpeed * Time.deltaTime,
+                         0,
+                         VerticalMovementSpeed * Time.deltaTime);
+        }
+        else
+        {
+
+        
+            horizontalInputTouch = map(inputManagerScript.getHorizontalInput(), 40, 750, -4, 5);
+            this.transform.position = new Vector3(Mathf.Lerp(this.transform.position.x, horizontalInputTouch, 2 * Time.deltaTime), this.transform.position.y, this.transform.position.z);
+        }
     }
 
+    float map(float val, float iMin, float iMax, float oMin, float oMax)
+    {
+
+        return (val - iMin) * (oMax - oMin) / (iMax - iMin) + oMin;
+    }
+    
 }
     

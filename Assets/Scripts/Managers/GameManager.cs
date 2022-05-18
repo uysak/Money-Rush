@@ -100,50 +100,42 @@ public class GameManager : MonoBehaviour
 
         else
             animationControllerScript.PlayCarryAnimation();
-         //   animatorPlayer.SetBool("isHaveMoney", true);
-
-        //if (isGameFailed == true)
-        //{
-        //    animationControllerScript.PlayPrayAnimation();
-        //}
 
     }
     public void ObstacleCollide(GameObject HitterObj, GameObject ObstacleObj)
     {
         Instantiate(MoneyBrokeParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
-        animationControllerScript.PlayObstacleAttackAnimation(ObstacleObj);
-
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShakeEffect>().ShakeCamera();
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().ShakeCamera();
 
         moneyBarScript.SetCurrentMoney(currentMoney -= 100);
 
 
-        if(!HitterObj.CompareTag("Player"))
+        if(HitterObj.CompareTag("Player"))
         {
-            moneyBarScript.SetCurrentMoney(currentMoney -= 100);
-            HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true;
-            // The object at the end of the queue has been destroyed, we are adding an object detection feature to the object it is connected to.
-            Destroy(HitterObj);
-        }
-        else if(HitterObj.CompareTag("Player"))
-        {
+
             animationControllerScript.PlayFallingDownAnimation();
             gameOverPanel.SetActive(true);
             PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
             isGameStarted = false;
+
+
+        }
+        else
+        {
+            // The object at the end of the queue has been destroyed, we are adding an object detection feature to the object it is connected to.
+            HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true;
+            Destroy(HitterObj);
         }
 
     }
 
     public void FinishLine(GameObject HitterObj)
     {
-        Debug.LogWarning("finishline");
         Instantiate(PayMoneyParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
         if (HitterObj.CompareTag("Player"))
         {
             if(currentMoney <= necessaryMoney)
             {
-//                isGameFailed = true;
                 animationControllerScript.PlayPrayAnimation();
                 animationControllerScript.PlayBossYellingAnimation();
                 PlayerObj.transform.LookAt(BossObj.transform);
@@ -155,19 +147,14 @@ public class GameManager : MonoBehaviour
             HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true; // 
             Destroy(HitterObj);
         }
-
     }
 
     public void StartGame()
     {
-        Debug.LogWarning("start calisti");
         animationControllerScript.PlayRunAnimation();
         SetAssignmentGameScene();
         PlayerObj.GetComponent<CollisionController>().enabled = true;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
-        //    PlayerObj.transform.SetParent(CollectedObjects.transform);
-        //PlayerObj.transform.position = new Vector3(5.5f, -36.55f, -56.40f);
-        //  PlayerObj.transform.Rotate(new Vector3(0, 180, 0));
         PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
         isGameStarted = true;
     }
@@ -189,7 +176,6 @@ public class GameManager : MonoBehaviour
         moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
         CollectedObjects = GameObject.FindGameObjectWithTag("CollectedObjects");
         moneyBarScript.SetMaxMoney(necessaryMoney);
-
         isAssignmentSuccesful = true;
     }
 

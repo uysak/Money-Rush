@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
 {
     private Touch theTouch;
     private Vector2 touchStartPosition, touchEndPosition;
-    private float horizontalInput;
+    private float horizontalInput = 270;
     public bool changed;
 
     private PlayerMovementController playerMovementControllerScript;
@@ -28,10 +28,10 @@ public class InputManager : MonoBehaviour
             {
                 touchStartPosition = theTouch.position;
             }
-            if(theTouch.phase == TouchPhase.Ended)
-            {
-                horizontalInput = 0;
-            }
+            //if(theTouch.phase == TouchPhase.Ended)
+            //{
+            //    horizontalInput = 270;
+            //}
             else if(theTouch.phase == TouchPhase.Moved) //|| theTouch.phase == TouchPhase.Ended)
             {
                 touchEndPosition = theTouch.position;
@@ -39,22 +39,23 @@ public class InputManager : MonoBehaviour
                 float x = touchEndPosition.x - touchStartPosition.x;
                 float y = touchEndPosition.y - touchStartPosition.y;
 
-                Debug.LogWarning(x);
+                Debug.LogWarning(touchEndPosition.x);
 
-                if(Mathf.Abs(x) == 0 && Mathf.Abs(y) == 0)
+                //if(Mathf.Abs(x) == 0 && Mathf.Abs(y) == 0)
+                //{
+                //    horizontalInput = 0;
+                //}
+                if (Mathf.Abs(x) > Mathf.Abs(y))
                 {
+                    horizontalInput = touchEndPosition.x;
 
-                    horizontalInput = 0;
-                }
-                else if (Mathf.Abs(x) > Mathf.Abs(y))
-                {
                     if(x > 0)
                     {
-                        horizontalInput = 1;
+                      //  horizontalInput = 1;
                     }
                     else
                     {
-                        horizontalInput = -1;
+                     //   horizontalInput = -1;
                     }
                 }
                 

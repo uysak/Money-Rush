@@ -16,9 +16,4 @@ public class ObstacleController : MonoBehaviour
     {
         this.transform.LookAt(PlayerObj.transform);
     }
-    public void AttackAnimate()
-    {
-    //    animatorObstacle.Play("Base Layer.Attack", 0, 0.15f);
-    }
-
 }

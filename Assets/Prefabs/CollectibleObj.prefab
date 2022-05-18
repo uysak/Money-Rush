@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectedObj: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
+  trackOffset: 0.5
+  smoothEffect: 0.1
 --- !u!114 &7225702379272573006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225702379272573041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91329d0db6e659848a0b99f1bfd2436f, type: 3}
   m_Name: 
