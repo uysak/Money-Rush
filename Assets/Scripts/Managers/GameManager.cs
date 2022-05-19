@@ -88,12 +88,12 @@ public class GameManager : MonoBehaviour
             if(CollectedObjects.transform.childCount == 1)
             {
                 HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = -0.45f;
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0f;
+            //    HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0f;
             }
             else
             {
                 HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = 0.5f;
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0.04f;
+              //  HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0.04f;
             }
 
             moneyBarScript.SetCurrentMoney(currentMoney += 100);
