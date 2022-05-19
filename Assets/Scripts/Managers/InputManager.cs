@@ -39,8 +39,7 @@ public class InputManager : MonoBehaviour
                 float x = touchEndPosition.x - touchStartPosition.x;
                 float y = touchEndPosition.y - touchStartPosition.y;
 
-                //Debug.LogWarning(touchEndPosition.x);
-
+             //   Debug.LogWarning(touchEndPosition.x);
                 //if(Mathf.Abs(x) == 0 && Mathf.Abs(y) == 0)
                 //{
                 //    horizontalInput = 0;
