@@ -23,15 +23,18 @@ public class GameManager : MonoBehaviour
     private GameObject congratulationsPanel;
     private GameObject PlayerObj;
     private GameObject BossObj;
+    private GameObject UIManager;
+    private GameObject CollectedObjects;
 
     private AnimationController animationControllerScript;
 
     private Boss bossScript;
+    private UIManager uiManagerScript; 
 
     [SerializeField] GameObject MoneyBrokeParticleObj;
     [SerializeField] GameObject PayMoneyParticleObj;
 
-    private GameObject CollectedObjects;
+
     private MoneyBarController moneyBarScript;
 
     public Scene sceneTest;
@@ -43,9 +46,10 @@ public class GameManager : MonoBehaviour
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
         playerStartPos = PlayerObj.transform.position;
         playerStartRotation = PlayerObj.transform.rotation;
+        UIManager = GameObject.FindGameObjectWithTag("UIManager");
 
         animationControllerScript = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationController>();
-
+        uiManagerScript = UIManager.GetComponent<UIManager>();
         necessaryMoney = 500;
         currentMoney = 0;
     }
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     //    Debug.LogWarning(CollectedObjects.transform.childCount);
 
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && isAssignmentSuccesful == false)
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) && isAssignmentSuccesful == false)
         {
             StartGame();
         }
@@ -119,7 +123,7 @@ public class GameManager : MonoBehaviour
         {
 
             animationControllerScript.PlayFallingDownAnimation();
-            gameOverPanel.SetActive(true);
+            uiManagerScript.SetVisibleGameOverPanel();
             PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
             isGameStarted = false;
 
@@ -157,8 +161,14 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        uiManagerScript.SetUnvisibleStartGamePanel();
+        uiManagerScript.SetVisibleMoneyBar();
+
         animationControllerScript.PlayBossIdleAnimation();
         animationControllerScript.PlayRunAnimation();
+
+
+
         SetAssignmentGameScene();
         PlayerObj.GetComponent<CollisionController>().enabled = true;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
@@ -168,11 +178,21 @@ public class GameManager : MonoBehaviour
         moneyBarScript.SetCurrentMoney(0);
     }
 
+
+    public void RestartGame()
+    {
+        uiManagerScript.SetUnvisibleGameOverPanel();
+        isAssignmentSuccesful = false;
+        PlayerObj.transform.position = playerStartPos;
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
+        PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
+    }
+
     public void GameOver()
     {
         PlayerObj.transform.LookAt(BossObj.transform);
         PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
-        gameOverPanel.SetActive(true);
+        uiManagerScript.SetVisibleGameOverPanel();
         isGameStarted = false;
         animationControllerScript.PlayBossYellingAnimation();
         animationControllerScript.PlayPrayAnimation();
@@ -180,7 +200,7 @@ public class GameManager : MonoBehaviour
     public void LevelSuccessful() 
     {
         PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
-        congratulationsPanel.SetActive(true);
+        uiManagerScript.SetVisibleCongratulationsPanel();
         isGameStarted = false;
         animationControllerScript.PlayAJDanceAnimation();
         animationControllerScript.PlayBossDanceAnimation();
