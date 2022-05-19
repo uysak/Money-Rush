@@ -20,6 +20,7 @@ TagManager:
   - StartGamePanel
   - InputManager
   - CongratulationsPanel
+  - UIManager
   layers:
   - Default
   - TransparentFX

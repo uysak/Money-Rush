@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    private GameObject CollectedObjects;
-
-
     private GameManager gameManagerScript;
 
     [SerializeField] GameObject MoneyBrokeParticleObj;

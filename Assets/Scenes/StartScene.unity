@@ -2603,6 +2603,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2692634954289955597, guid: a0f44d8cbdca34148a19b5f156e4537d, type: 3}
+      propertyPath: m_TagString
+      value: UIManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f44d8cbdca34148a19b5f156e4537d, type: 3}
 --- !u!1 &1412138705
