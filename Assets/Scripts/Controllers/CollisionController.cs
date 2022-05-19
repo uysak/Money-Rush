@@ -18,7 +18,6 @@ public class CollisionController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Collectible"))
         {
             gameManagerScript.MoneyCollide(this.gameObject, other.gameObject);

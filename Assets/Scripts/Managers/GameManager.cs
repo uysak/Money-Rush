@@ -50,10 +50,13 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(isGameStarted == true)
-        {
-            AnimateControl();
-        }
+        //if(isGameStarted == true)
+        //{
+        //    AnimateControl();
+        //}
+
+    //    Debug.LogWarning(CollectedObjects.transform.childCount);
+
         if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && isAssignmentSuccesful == false)
         {
             StartGame();
@@ -62,9 +65,10 @@ public class GameManager : MonoBehaviour
     public void MoneyCollide(GameObject HitterObj, GameObject HittenObj)
     {
         {
-
             HittenObj.gameObject.transform.SetParent(CollectedObjects.transform);
             HittenObj.gameObject.tag = "Collected";
+
+            AnimateControl();
 
             HittenObj.gameObject.GetComponent<BoxCollider>().isTrigger = true;
             HitterObj.gameObject.GetComponent<BoxCollider>().isTrigger = false;
@@ -93,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     public void AnimateControl()
     {
-        if (CollectedObjects.transform.childCount == 0)
+        if ( CollectedObjects.transform.childCount == 0)
         {
             animationControllerScript.PlayRunAnimation();
         }
@@ -126,7 +130,7 @@ public class GameManager : MonoBehaviour
             HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true;
             Destroy(HitterObj);
         }
-
+        AnimateControl();
     }
 
     public void FinishLine(GameObject HitterObj)
