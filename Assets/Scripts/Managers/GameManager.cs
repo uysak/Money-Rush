@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject Canvas;
     private GameObject gameOverPanel;
+    private GameObject congratulationsPanel;
     private GameObject PlayerObj;
     private GameObject BossObj;
 
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
 
         animationControllerScript = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationController>();
 
-        necessaryMoney = 2000;
+        necessaryMoney = 500;
         currentMoney = 0;
     }
     private void FixedUpdate()
@@ -138,12 +139,13 @@ public class GameManager : MonoBehaviour
         Instantiate(PayMoneyParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
         if (HitterObj.CompareTag("Player"))
         {
-            if(currentMoney <= necessaryMoney)
+            if(currentMoney < necessaryMoney)
             {
-                animationControllerScript.PlayPrayAnimation();
-                animationControllerScript.PlayBossYellingAnimation();
-                PlayerObj.transform.LookAt(BossObj.transform);
                 GameOver();
+            }
+            else
+            {
+                LevelSuccessful();
             }
         }
         else
@@ -155,6 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        animationControllerScript.PlayBossIdleAnimation();
         animationControllerScript.PlayRunAnimation();
         SetAssignmentGameScene();
         PlayerObj.GetComponent<CollisionController>().enabled = true;
@@ -167,10 +170,20 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        PlayerObj.transform.LookAt(BossObj.transform);
         PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
         gameOverPanel.SetActive(true);
         isGameStarted = false;
+        animationControllerScript.PlayBossYellingAnimation();
         animationControllerScript.PlayPrayAnimation();
+    }
+    public void LevelSuccessful() 
+    {
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
+        congratulationsPanel.SetActive(true);
+        isGameStarted = false;
+        animationControllerScript.PlayAJDanceAnimation();
+        animationControllerScript.PlayBossDanceAnimation();
     }
 
     public void SetAssignmentGameScene()
@@ -179,6 +192,7 @@ public class GameManager : MonoBehaviour
         bossScript = BossObj.GetComponent<Boss>();
         Canvas = GameObject.Find("Canvas");
         gameOverPanel = Canvas.transform.GetChild(2).gameObject;
+        congratulationsPanel = Canvas.transform.GetChild(3).gameObject;
         moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
         CollectedObjects = GameObject.FindGameObjectWithTag("CollectedObjects");
         moneyBarScript.SetMaxMoney(necessaryMoney);

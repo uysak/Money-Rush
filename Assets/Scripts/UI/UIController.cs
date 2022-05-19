@@ -23,9 +23,6 @@ public class UIController : MonoBehaviour
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
      //   MoneyBarObj = GameObject.FindGameObjectWithTag("MoneyBar");
     }
-
-    // Update is called once per frame
-
     public void RestartGame()
     {
         GameOverPanelObj = GameObject.FindGameObjectWithTag("GameOverPanel");
@@ -36,7 +33,6 @@ public class UIController : MonoBehaviour
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
     }
-
     public void StartGame()
     {
         StartGamePanelObj.SetActive(false);

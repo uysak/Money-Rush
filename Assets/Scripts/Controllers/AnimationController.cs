@@ -44,7 +44,7 @@ public class AnimationController : MonoBehaviour
             BossObj = GameObject.FindGameObjectWithTag("Boss");
             bossAnimator = BossObj.GetComponent<Animator>();
         }
-
+        bossAnimator.SetBool("isGameStarted", false);
         bossAnimator.SetBool("Yelling", true);
     }
     public void PlayObstacleAttackAnimation(GameObject obstacle)
@@ -58,4 +58,27 @@ public class AnimationController : MonoBehaviour
         playerAnimator.SetBool("isGameStarted", false);
         playerAnimator.SetBool("isHaveMoney", false);
     }
+
+    public void PlayAJDanceAnimation()
+    {
+        playerAnimator.SetBool("isLevelSuccess", true);
+        playerAnimator.SetBool("isGameStarted", false);
+        playerAnimator.SetBool("isHaveMoney", false);
+    }
+    public void PlayBossIdleAnimation()
+    {
+        if(BossObj == null)
+        {
+            BossObj = GameObject.FindGameObjectWithTag("Boss");
+            bossAnimator = BossObj.GetComponent<Animator>();
+            bossAnimator.SetBool("isGameStarted", true);
+            bossAnimator.SetBool("Yelling", false);
+        }
+    }
+    public void PlayBossDanceAnimation()
+    {
+        bossAnimator.SetBool("isGameStarted", false);
+        bossAnimator.SetBool("isLevelSuccess", true);
+    }
+
 }
