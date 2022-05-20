@@ -2139,6 +2139,14 @@ PrefabInstance:
       propertyPath: horizontalMovementSpeed
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2563545936260665896, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
+      propertyPath: DollarSignParticle
+      value: 
+      objectReference: {fileID: 3886780025101189750, guid: c64bae6f11f32f54c825c0af0ce941c6, type: 3}
+    - target: {fileID: 2563545936260665896, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
+      propertyPath: MoneyBrokeParticle
+      value: 
+      objectReference: {fileID: 3886780025101189750, guid: eee53f52b63f65c4e8431d7f63bfe6e5, type: 3}
     - target: {fileID: 6271089472948417586, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2186,6 +2194,18 @@ PrefabInstance:
     - target: {fileID: 6271089472948417587, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271089472948417589, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271089472948417591, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271089472948417591, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df453448dd6481c4083388d9f0a72acc, type: 3}

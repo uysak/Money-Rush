@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6271089472948417587}
-  - component: {fileID: 6271089472948417590}
   - component: {fileID: 6271089472948417589}
   - component: {fileID: 6271089472948417591}
   - component: {fileID: 2065921065}
   - component: {fileID: 1177076984}
+  - component: {fileID: 2563545936260665896}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36,19 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6271089472948417590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6271089472948417586}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb4f638722573c4ebc37e968419db67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoneyBrokeParticleObj: {fileID: 3886780025101189750, guid: eee53f52b63f65c4e8431d7f63bfe6e5, type: 3}
 --- !u!65 &6271089472948417589
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -102,6 +89,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dba1f51f55fadc4ab11cab961437b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2563545936260665896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271089472948417586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc12e329e564674390f26d598973b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6271089471411171384
