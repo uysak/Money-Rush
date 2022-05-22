@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
     //    Debug.LogWarning(CollectedObjects.transform.childCount);
 
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) && isAssignmentSuccesful == false)
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2) && isAssignmentSuccesful == false)
         {
             StartGame();
         }

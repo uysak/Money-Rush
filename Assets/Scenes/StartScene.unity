@@ -2196,6 +2196,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6271089472948417589, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
+      propertyPath: m_Center.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271089472948417589, guid: df453448dd6481c4083388d9f0a72acc, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -3058,6 +3062,7 @@ GameObject:
   - component: {fileID: 1737719060}
   - component: {fileID: 1737719062}
   - component: {fileID: 1737719061}
+  - component: {fileID: 1737719063}
   m_Layer: 5
   m_Name: StartGamePanel
   m_TagString: StartGamePanel
@@ -3123,6 +3128,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737719059}
   m_CullTransparentMesh: 1
+--- !u!225 &1737719063
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737719059}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1769962001
 GameObject:
   m_ObjectHideFlags: 0

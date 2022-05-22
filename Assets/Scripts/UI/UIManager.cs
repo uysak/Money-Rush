@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    private bool isFaded = true;
+    [SerializeField] CanvasGroup canvasGroup;
+
+
     private GameObject Canvas;
 
     private GameObject StartGamePanelObj;
     private GameObject GameOverPanelObj;
     private GameObject MoneyBarObj;
     private GameObject CongratulationsPanelObj;
+
+    
 
     public GameObject PlayerObj;
 
@@ -33,12 +41,12 @@ public class UIManager : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
         gameManagerScript.RestartGame();
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(3);
+        StartGamePanelObj.transform.DOScale(2f, 1f).OnComplete(() => SceneManager.LoadScene(2));   
     }
 
     public void SetVisibleGameOverPanel()
