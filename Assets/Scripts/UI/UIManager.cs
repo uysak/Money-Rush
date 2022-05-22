@@ -41,12 +41,24 @@ public class UIManager : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
         gameManagerScript.RestartGame();
     }
     public void StartGame()
     {
-        StartGamePanelObj.transform.DOScale(2f, 1f).OnComplete(() => SceneManager.LoadScene(2));   
+        StartCoroutine(LoadSceneAsync(3)); 
+    }
+
+
+    IEnumerator LoadSceneAsync(int buildIndex)
+    {
+        AsyncOperation sceneLoader;
+        sceneLoader = SceneManager.LoadSceneAsync(buildIndex);
+        while(sceneLoader.isDone == false)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameManagerScript.StartGame();
     }
 
     public void SetVisibleGameOverPanel()

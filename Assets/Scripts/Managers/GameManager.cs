@@ -52,26 +52,7 @@ public class GameManager : MonoBehaviour
         necessaryMoney = 500;
         currentMoney = 0;
     }
-    private void FixedUpdate()
-    {
-    //    Debug.LogWarning(CollectedObjects.transform.childCount);
-
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2) && isAssignmentSuccesful == false)
-        {
-            StartGame();
-        }
-
-        if(collectedObjectManagerScript.getCollectedObjectCount() == 0)
-        {
-            animationControllerScript.PlayRunAnimation();
-        }
-        else
-        {
-            animationControllerScript.PlayCarryAnimation();
-        }
-    }
    
-
     public void FinishLine(GameObject HitterObj)
     {
         Instantiate(PayMoneyParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
@@ -88,8 +69,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-//            HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true; // 
-            Destroy(HitterObj);
+            HitterObj.GetComponent<CollectibleObject>().SetSmall();
         }
     }
 
