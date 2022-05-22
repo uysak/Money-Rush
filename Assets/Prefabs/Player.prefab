@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2065921065}
   - component: {fileID: 1177076984}
   - component: {fileID: 2563545936260665896}
+  - component: {fileID: 827223982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -48,7 +49,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.69848657, y: 0.9576661, z: 0.22163916}
-  m_Center: {x: 0.5828192, y: 0.15673438, z: 0.69}
+  m_Center: {x: 0.5828192, y: 0.15673438, z: -0.1}
 --- !u!54 &6271089472948417591
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -61,9 +62,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2065921065
 MonoBehaviour:
@@ -72,12 +73,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6271089472948417586}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12a33f15012214749b4d733459761d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalMovementSpeed: 3
+  horizontalMovementSpeed: 3.5
   VerticalMovementSpeed: 6
 --- !u!114 &1177076984
 MonoBehaviour:
@@ -101,6 +102,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fc12e329e564674390f26d598973b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackOffset: 0
+  trackOffset2: 0
+  MoneyBrokeParticle: {fileID: 3886780025101189750, guid: eee53f52b63f65c4e8431d7f63bfe6e5, type: 3}
+  DollarSignParticle: {fileID: 3886780025101189750, guid: c64bae6f11f32f54c825c0af0ce941c6, type: 3}
+--- !u!114 &827223982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271089472948417586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cc8a38e2f57ff4c99f0aad7bb3f8f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6271089471411171384

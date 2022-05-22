@@ -76,7 +76,7 @@ public class PlayerMovementController : MonoBehaviour
         {
 
         
-            horizontalInputTouch = map(inputManagerScript.getHorizontalInput(), 40, 750, -4, 5);
+            horizontalInputTouch = map(inputManagerScript.getHorizontalInput(), 20, 750, -5, 4);
             this.transform.position = new Vector3(Mathf.Lerp(this.transform.position.x, horizontalInputTouch, 2 * Time.deltaTime), this.transform.position.y, this.transform.position.z);
         }
     }

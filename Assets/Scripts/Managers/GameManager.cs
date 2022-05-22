@@ -56,20 +56,27 @@ public class GameManager : MonoBehaviour
     public void FinishLine(GameObject HitterObj)
     {
         Instantiate(PayMoneyParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
-        if (HitterObj.CompareTag("Player"))
+        if(currentMoney < necessaryMoney)
         {
-            if(currentMoney < necessaryMoney)
-            {
-                GameOver();
-            }
-            else
-            {
-                LevelSuccessful();
-            }
+            GameOver();
+        }
+        
+        else
+        {
+            LevelSuccessful();
+        }
+        
+    }
+
+    public void CheckIfPlayerRunOrCarry()
+    {
+        if(collectedObjectManagerScript.getCollectedObjectCount() == 0)
+        {
+            animationControllerScript.PlayRunAnimation();
         }
         else
         {
-            HitterObj.GetComponent<CollectibleObject>().SetSmall();
+            animationControllerScript.PlayCarryAnimation();
         }
     }
 
@@ -81,15 +88,26 @@ public class GameManager : MonoBehaviour
         animationControllerScript.PlayBossIdleAnimation();
         animationControllerScript.PlayRunAnimation();
 
-
-
         SetAssignmentGameScene();
-    //    PlayerObj.GetComponent<CollisionController>().enabled = true;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
         isGameStarted = true;
         currentMoney = 0;
         moneyBarScript.SetCurrentMoney(0);
+    }
+
+
+
+    public void IncreaseScore(int Price)
+    {
+        currentMoney += Price;
+        moneyBarScript.SetCurrentMoney(currentMoney);
+    }
+
+    public void DecreaseScore(int Price)
+    {
+        currentMoney -= Price;
+        moneyBarScript.SetCurrentMoney(currentMoney);
     }
 
 
@@ -100,8 +118,25 @@ public class GameManager : MonoBehaviour
         PlayerObj.transform.position = playerStartPos;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
+        animationControllerScript.PlayRunAnimation();
     }
 
+    public void NextLevel()
+    {
+        uiManagerScript.SetUnvisibleCongratulationsPanel();
+        uiManagerScript.SetVisibleMoneyBar();
+
+        animationControllerScript.PlayBossIdleAnimation();
+        animationControllerScript.PlayRunAnimation();
+
+        SetAssignmentGameScene();
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
+        PlayerObj.transform.position = new Vector3(0, 0.9f, -10f);
+        PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
+        isGameStarted = true;
+        currentMoney = 0;
+        moneyBarScript.SetCurrentMoney(0);
+    }
     public void GameOver()
     {
         PlayerObj.transform.LookAt(BossObj.transform);
@@ -128,9 +163,16 @@ public class GameManager : MonoBehaviour
         gameOverPanel = Canvas.transform.GetChild(2).gameObject;
         congratulationsPanel = Canvas.transform.GetChild(3).gameObject;
         moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
- //       CollectedObjects = GameObject.FindGameObjectWithTag("CollectedObjects");
         moneyBarScript.SetMaxMoney(necessaryMoney);
         isAssignmentSuccesful = true;
+    }
+
+    public void GameOverBecauseObstacle()
+    {
+        animationControllerScript.PlayFallingDownAnimation();
+        uiManagerScript.SetVisibleGameOverPanel();
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
+        isGameStarted = false;
     }
 
 }

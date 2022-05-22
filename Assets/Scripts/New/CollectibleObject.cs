@@ -8,6 +8,8 @@ public class CollectibleObject : MonoBehaviour
     CollectedObjectManager collectedObjectManagerScript;
     public int indexOnList;
 
+    [SerializeField] private int Price;
+
     private bool wait;
 
     // Start is called before the first frame update
@@ -31,7 +33,7 @@ public class CollectibleObject : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("FinishLine"))
         {
-            collectedObjectManagerScript.FinishLine(this.gameObject);
+            collectedObjectManagerScript.FinishLineCollision(this.gameObject);
         }
     }
 
@@ -45,6 +47,11 @@ public class CollectibleObject : MonoBehaviour
     {
         this.transform.DOScale(0.1f, 1f).SetEase(Ease.OutSine).OnComplete( ()=> Destroy(this.gameObject));
         
+    }
+
+    public int getPrice()
+    {
+        return Price;
     }
 
 }

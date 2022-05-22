@@ -30,6 +30,7 @@ public class AnimationController : MonoBehaviour
         playerAnimator.SetBool("isHaveMoney", false);
         playerAnimator.SetBool("isGameFailed", false);
         playerAnimator.SetBool("isCollisionObstacle", false);
+        playerAnimator.SetBool("isLevelSuccess", false);
     }
 
     public void PlayCarryAnimation()
@@ -75,6 +76,7 @@ public class AnimationController : MonoBehaviour
             bossAnimator.SetBool("Yelling", false);
         }
     }
+
     public void PlayBossDanceAnimation()
     {
         bossAnimator.SetBool("isGameStarted", false);

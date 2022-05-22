@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indexOnList: 0
+  Price: 100
 --- !u!1001 &7225702378436900082
 PrefabInstance:
   m_ObjectHideFlags: 0
