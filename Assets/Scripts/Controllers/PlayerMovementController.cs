@@ -16,7 +16,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     void Update()
     {
-        Move2();
+        Move();
         Run();
         CheckBorder();
     }
@@ -33,29 +33,6 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    private void Move()
-    {
-
-        horizontalInputKeyboard = Input.GetAxis("Horizontal");
-        horizontalInputTouch =  Mathf.Lerp(horizontalInputKeyboard, inputManagerScript.getHorizontalInput(),0.3f);
-
-
-
-        if(horizontalInputKeyboard != 0)
-        {
-            this.transform.Translate(horizontalInputKeyboard * horizontalMovementSpeed * Time.deltaTime,
-                         0,
-                         VerticalMovementSpeed * Time.deltaTime);
-        }
-        else
-        {
-            this.transform.Translate(horizontalInputTouch * horizontalMovementSpeed * Time.deltaTime,
-                         0,
-                         VerticalMovementSpeed * Time.deltaTime);
-        }
-
-    }
-
     private void Run()
     {
         this.transform.Translate(0,
@@ -63,29 +40,13 @@ public class PlayerMovementController : MonoBehaviour
                         VerticalMovementSpeed * Time.deltaTime);
     }
 
-    public void Move2()
+    public void Move()
     {
-        horizontalInputKeyboard = Input.GetAxis("Horizontal");
-        if (horizontalInputKeyboard != 0)
-        {
-            this.transform.Translate(horizontalInputKeyboard * horizontalMovementSpeed * Time.deltaTime,
-                         0,
-                         VerticalMovementSpeed * Time.deltaTime);
-        }
-        else
-        {
-
-        
-            horizontalInputTouch = map(inputManagerScript.getHorizontalInput(), 40, 750, -4, 5);
-            this.transform.position = new Vector3(Mathf.Lerp(this.transform.position.x, horizontalInputTouch, 2 * Time.deltaTime), this.transform.position.y, this.transform.position.z);
-        }
+        horizontalInputTouch = inputManagerScript.getHorizontalInput();
+        this.transform.position = new Vector3(Mathf.Lerp(this.transform.position.x, horizontalInputTouch, 2 * Time.deltaTime), this.transform.position.y, this.transform.position.z);   
     }
 
-    float map(float val, float iMin, float iMax, float oMin, float oMax)
-    {
 
-        return (val - iMin) * (oMax - oMin) / (iMax - iMin) + oMin;
-    }
     
 }
     

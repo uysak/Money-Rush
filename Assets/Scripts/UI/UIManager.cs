@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    private bool isFaded = true;
+    [SerializeField] CanvasGroup canvasGroup;
+
+    private int currentSceneBuildIndex = 1;
+
     private GameObject Canvas;
 
     private GameObject StartGamePanelObj;
     private GameObject GameOverPanelObj;
     private GameObject MoneyBarObj;
     private GameObject CongratulationsPanelObj;
+
+    
 
     public GameObject PlayerObj;
 
@@ -33,13 +42,46 @@ public class UIManager : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene(3);
+        StartCoroutine(LoadSceneAsync(currentSceneBuildIndex));
         gameManagerScript.RestartGame();
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(3);
+        StartCoroutine(LoadSceneAsync(currentSceneBuildIndex));
     }
+
+    public void NextLevel()
+    {
+        currentSceneBuildIndex++;
+        StartCoroutine(LoadNextLevel(currentSceneBuildIndex));
+    }
+
+
+    IEnumerator LoadSceneAsync(int buildIndex)
+    {
+        AsyncOperation sceneLoader;
+        sceneLoader = SceneManager.LoadSceneAsync(buildIndex);
+        while(sceneLoader.isDone == false)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameManagerScript.StartGame();
+        yield return new WaitForSeconds(0.1f);
+    }
+
+    IEnumerator LoadNextLevel(int buildIndex)
+    {
+        AsyncOperation sceneLoader;
+        sceneLoader = SceneManager.LoadSceneAsync(buildIndex);
+        while (sceneLoader.isDone == false)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameManagerScript.NextLevel();
+        yield return new WaitForSeconds(0.1f);
+    }
+
+
 
     public void SetVisibleGameOverPanel()
     {

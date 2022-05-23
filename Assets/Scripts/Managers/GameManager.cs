@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour
     private GameObject PlayerObj;
     private GameObject BossObj;
     private GameObject UIManager;
-    private GameObject CollectedObjects;
+//    private GameObject CollectedObjects;
 
     private AnimationController animationControllerScript;
+    private CollectedObjectManager collectedObjectManagerScript;
+    private Level levelScript;
 
     private Boss bossScript;
     private UIManager uiManagerScript; 
@@ -34,128 +36,49 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject MoneyBrokeParticleObj;
     [SerializeField] GameObject PayMoneyParticleObj;
 
-
     private MoneyBarController moneyBarScript;
-
-    public Scene sceneTest;
 
     // Start is called before the first frame update
     void Start()
     {
-        sceneTest = SceneManager.GetSceneByBuildIndex(1);
+
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
         playerStartPos = PlayerObj.transform.position;
         playerStartRotation = PlayerObj.transform.rotation;
         UIManager = GameObject.FindGameObjectWithTag("UIManager");
 
+        levelScript = this.GetComponent<Level>();
+        collectedObjectManagerScript = PlayerObj.GetComponent<CollectedObjectManager>();
         animationControllerScript = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationController>();
         uiManagerScript = UIManager.GetComponent<UIManager>();
-        necessaryMoney = 500;
+
         currentMoney = 0;
     }
-    private void FixedUpdate()
-    {
-        //if(isGameStarted == true)
-        //{
-        //    AnimateControl();
-        //}
-
-    //    Debug.LogWarning(CollectedObjects.transform.childCount);
-
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3) && isAssignmentSuccesful == false)
-        {
-            StartGame();
-        }
-    }
-    public void MoneyCollide(GameObject HitterObj, GameObject HittenObj)
-    {
-        {
-            HittenObj.gameObject.transform.SetParent(CollectedObjects.transform);
-            HittenObj.gameObject.tag = "Collected";
-
-            AnimateControl();
-
-            HittenObj.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-            HitterObj.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-
-
-            HittenObj.gameObject.GetComponent<CollectibleObjMovementController>().enabled = false;
-            HittenObj.gameObject.GetComponent<CollectedObjMovementController>().enabled = true;
-            HittenObj.gameObject.GetComponent<CollectedObjMovementController>().ConnectedObj = HitterObj.gameObject;
-
-            HittenObj.gameObject.GetComponent<CollisionController>().enabled = true;
-
-            if(CollectedObjects.transform.childCount == 1)
-            {
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = -0.45f;
-            //    HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0f;
-            }
-            else
-            {
-                HittenObj.gameObject.GetComponent<CollectedObjMovementController>().trackOffset = 0.5f;
-              //  HittenObj.gameObject.GetComponent<CollectedObjMovementController>().smoothEffect = 0.04f;
-            }
-
-            moneyBarScript.SetCurrentMoney(currentMoney += 100);
-        }
-    }
-
-    public void AnimateControl()
-    {
-        if ( CollectedObjects.transform.childCount == 0)
-        {
-            animationControllerScript.PlayRunAnimation();
-        }
-
-        else
-            animationControllerScript.PlayCarryAnimation();
-
-    }
-    public void ObstacleCollide(GameObject HitterObj, GameObject ObstacleObj)
-    {
-        Instantiate(MoneyBrokeParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().ShakeCamera();
-
-        moneyBarScript.SetCurrentMoney(currentMoney -= 100);
-
-
-        if(HitterObj.CompareTag("Player"))
-        {
-
-            animationControllerScript.PlayFallingDownAnimation();
-            uiManagerScript.SetVisibleGameOverPanel();
-            PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
-            isGameStarted = false;
-
-
-        }
-        else
-        {
-            // The object at the end of the queue has been destroyed, we are adding an object detection feature to the object it is connected to.
-            HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true;
-            Destroy(HitterObj);
-        }
-        AnimateControl();
-    }
-
+   
     public void FinishLine(GameObject HitterObj)
     {
         Instantiate(PayMoneyParticleObj, HitterObj.transform.position, HitterObj.gameObject.transform.rotation);
-        if (HitterObj.CompareTag("Player"))
+        if(currentMoney < necessaryMoney)
         {
-            if(currentMoney < necessaryMoney)
-            {
-                GameOver();
-            }
-            else
-            {
-                LevelSuccessful();
-            }
+            GameOver();
+        }
+        
+        else
+        {
+            LevelSuccessful();
+        }
+        
+    }
+
+    public void CheckPlayerRunOrCarry()
+    {
+        if(collectedObjectManagerScript.getCollectedObjectCount() == 0)
+        {
+            animationControllerScript.PlayRunAnimation();
         }
         else
         {
-            HitterObj.GetComponent<CollectedObjMovementController>().ConnectedObj.GetComponent<BoxCollider>().isTrigger = true; // 
-            Destroy(HitterObj);
+            animationControllerScript.PlayCarryAnimation();
         }
     }
 
@@ -167,15 +90,29 @@ public class GameManager : MonoBehaviour
         animationControllerScript.PlayBossIdleAnimation();
         animationControllerScript.PlayRunAnimation();
 
-
-
         SetAssignmentGameScene();
-        PlayerObj.GetComponent<CollisionController>().enabled = true;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
         isGameStarted = true;
         currentMoney = 0;
         moneyBarScript.SetCurrentMoney(0);
+        necessaryMoney = levelScript.getNecessaryMoney();
+        moneyBarScript.SetMaxMoney(necessaryMoney);
+
+    }
+
+
+
+    public void IncreaseScore(int Price)
+    {
+        currentMoney += Price;
+        moneyBarScript.SetCurrentMoney(currentMoney);
+    }
+
+    public void DecreaseScore(int Price)
+    {
+        currentMoney -= Price;
+        moneyBarScript.SetCurrentMoney(currentMoney);
     }
 
 
@@ -186,8 +123,28 @@ public class GameManager : MonoBehaviour
         PlayerObj.transform.position = playerStartPos;
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
+        animationControllerScript.PlayRunAnimation();
     }
 
+    public void NextLevel()
+    {
+        necessaryMoney = levelScript.getNecessaryMoney();
+        moneyBarScript.SetMaxMoney(necessaryMoney);
+
+        uiManagerScript.SetUnvisibleCongratulationsPanel();
+        uiManagerScript.SetVisibleMoneyBar();
+
+        animationControllerScript.PlayBossIdleAnimation();
+        animationControllerScript.PlayRunAnimation();
+
+        SetAssignmentGameScene();
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
+        PlayerObj.transform.position = new Vector3(0, 0.9f, -10f);
+        PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
+        isGameStarted = true;
+        currentMoney = 0;
+        moneyBarScript.SetCurrentMoney(0);
+    }
     public void GameOver()
     {
         PlayerObj.transform.LookAt(BossObj.transform);
@@ -214,9 +171,17 @@ public class GameManager : MonoBehaviour
         gameOverPanel = Canvas.transform.GetChild(2).gameObject;
         congratulationsPanel = Canvas.transform.GetChild(3).gameObject;
         moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
-        CollectedObjects = GameObject.FindGameObjectWithTag("CollectedObjects");
+        necessaryMoney = levelScript.getNecessaryMoney();
         moneyBarScript.SetMaxMoney(necessaryMoney);
         isAssignmentSuccesful = true;
+    }
+
+    public void GameOverBecauseObstacle()
+    {
+        animationControllerScript.PlayFallingDownAnimation();
+        uiManagerScript.SetVisibleGameOverPanel();
+        PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
+        isGameStarted = false;
     }
 
 }

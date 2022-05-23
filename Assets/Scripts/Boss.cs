@@ -25,7 +25,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-
     public void CheckDistance()
     {
         if(Vector3.Distance(this.transform.position,playerObj.transform.position) < 5)
