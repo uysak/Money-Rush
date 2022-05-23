@@ -69,7 +69,7 @@ public class CollectedObjectManager : MonoBehaviour
 
         CollectedObjectList.Add(CollectedObject);
 
-        gameManagerScript.CheckIfPlayerRunOrCarry();
+        gameManagerScript.CheckPlayerRunOrCarry();
 
         for (int index = lastGameObjectIndex; index >= 0; index--)
         {
@@ -104,12 +104,14 @@ public class CollectedObjectManager : MonoBehaviour
                 Debug.Log("Object which must destroy: " + CollectedObjectList[i].name);
                 CollectedObjectList[i].GetComponent<CollectibleObject>().SetSmall();
                 CollectedObjectList.RemoveAt(i);
+                gameManagerScript.DecreaseScore(CollectedObject.GetComponent<CollectibleObject>().getPrice());
+                
             }
 
             lastGameObjectIndex = CollectedObjectList.Count;
         }
 
-        gameManagerScript.CheckIfPlayerRunOrCarry();
+        gameManagerScript.CheckPlayerRunOrCarry();
     }
 
     public void FinishLineCollision(GameObject CollectedObject)

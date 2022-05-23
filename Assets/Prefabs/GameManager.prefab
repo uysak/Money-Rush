@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1439982904055004318}
   - component: {fileID: 1439982904055004305}
   - component: {fileID: 1972989025}
+  - component: {fileID: 1770783264}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -45,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameStarted: 0
+  playerStartPos: {x: 0, y: 0, z: 0}
+  playerStartRotation: {x: 0, y: 0, z: 0, w: 0}
   isGameFailed: 0
   isAssignmentSuccesful: 0
   MoneyBrokeParticleObj: {fileID: 3886780025101189750, guid: eee53f52b63f65c4e8431d7f63bfe6e5, type: 3}
@@ -59,5 +62,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dba1f51f55fadc4ab11cab961437b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1770783264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439982904055004304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3fc70488b68e54a9668f6787e7f624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

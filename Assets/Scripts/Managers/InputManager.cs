@@ -20,50 +20,53 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.LogWarning(theTouch.phase.ToString());
+        //TouchScreen();
+        Mouse();
+    }
+
+
+    private void Mouse()
+    {
+        if(Input.GetMouseButton(0)){
+            horizontalInput = map(Input.mousePosition.x, 0, 500, -5, 4);
+        }
+    }
+
+
+
+    private void TouchScreen()
+    {
         if (Input.touchCount > 0)
         {
             theTouch = Input.GetTouch(0);
-            if(theTouch.phase == TouchPhase.Began)
+            if (theTouch.phase == TouchPhase.Began)
             {
                 touchStartPosition = theTouch.position;
             }
-            //if(theTouch.phase == TouchPhase.Ended)
-            //{
-            //    horizontalInput = 270;
-            //}
-            else if(theTouch.phase == TouchPhase.Moved) //|| theTouch.phase == TouchPhase.Ended)
+
+            else if (theTouch.phase == TouchPhase.Moved) //|| theTouch.phase == TouchPhase.Ended)
             {
                 touchEndPosition = theTouch.position;
 
                 float x = touchEndPosition.x - touchStartPosition.x;
                 float y = touchEndPosition.y - touchStartPosition.y;
 
-             //   Debug.LogWarning(touchEndPosition.x);
-                //if(Mathf.Abs(x) == 0 && Mathf.Abs(y) == 0)
-                //{
-                //    horizontalInput = 0;
-                //}
                 if (Mathf.Abs(x) > Mathf.Abs(y))
                 {
-                    horizontalInput = touchEndPosition.x;
-
-                    if(x > 0)
-                    {
-                      //  horizontalInput = 1;
-                    }
-                    else
-                    {
-                     //   horizontalInput = -1;
-                    }
+                    horizontalInput = map(touchEndPosition.x, 20, 750, -5, 4);                
                 }
-                
             }
         }
-        
     }
+
     public float getHorizontalInput() 
     {
         return horizontalInput;
+    }
+
+    float map(float val, float iMin, float iMax, float oMin, float oMax)
+    {
+
+        return (val - iMin) * (oMax - oMin) / (iMax - iMin) + oMin;
     }
 }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private AnimationController animationControllerScript;
     private CollectedObjectManager collectedObjectManagerScript;
+    private Level levelScript;
 
     private Boss bossScript;
     private UIManager uiManagerScript; 
@@ -46,10 +47,11 @@ public class GameManager : MonoBehaviour
         playerStartRotation = PlayerObj.transform.rotation;
         UIManager = GameObject.FindGameObjectWithTag("UIManager");
 
+        levelScript = this.GetComponent<Level>();
         collectedObjectManagerScript = PlayerObj.GetComponent<CollectedObjectManager>();
         animationControllerScript = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationController>();
         uiManagerScript = UIManager.GetComponent<UIManager>();
-        necessaryMoney = 500;
+
         currentMoney = 0;
     }
    
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void CheckIfPlayerRunOrCarry()
+    public void CheckPlayerRunOrCarry()
     {
         if(collectedObjectManagerScript.getCollectedObjectCount() == 0)
         {
@@ -94,6 +96,9 @@ public class GameManager : MonoBehaviour
         isGameStarted = true;
         currentMoney = 0;
         moneyBarScript.SetCurrentMoney(0);
+        necessaryMoney = levelScript.getNecessaryMoney();
+        moneyBarScript.SetMaxMoney(necessaryMoney);
+
     }
 
 
@@ -123,6 +128,9 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        necessaryMoney = levelScript.getNecessaryMoney();
+        moneyBarScript.SetMaxMoney(necessaryMoney);
+
         uiManagerScript.SetUnvisibleCongratulationsPanel();
         uiManagerScript.SetVisibleMoneyBar();
 
@@ -163,6 +171,7 @@ public class GameManager : MonoBehaviour
         gameOverPanel = Canvas.transform.GetChild(2).gameObject;
         congratulationsPanel = Canvas.transform.GetChild(3).gameObject;
         moneyBarScript = GameObject.FindGameObjectWithTag("MoneyBar").GetComponent<MoneyBarController>();
+        necessaryMoney = levelScript.getNecessaryMoney();
         moneyBarScript.SetMaxMoney(necessaryMoney);
         isAssignmentSuccesful = true;
     }
