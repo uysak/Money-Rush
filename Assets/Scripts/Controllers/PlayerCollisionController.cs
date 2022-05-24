@@ -27,6 +27,5 @@ public class PlayerCollisionController : MonoBehaviour
         {
             gameManagerScript.FinishLine(this.gameObject);
         }
-        
     }
 }

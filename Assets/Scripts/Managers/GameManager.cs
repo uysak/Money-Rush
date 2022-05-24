@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     private AnimationController animationControllerScript;
     private CollectedObjectManager collectedObjectManagerScript;
     private Level levelScript;
+    private CameraController cameraControllerScript;
 
     private Boss bossScript;
     private UIManager uiManagerScript; 
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         playerStartRotation = PlayerObj.transform.rotation;
         UIManager = GameObject.FindGameObjectWithTag("UIManager");
 
+        cameraControllerScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         levelScript = this.GetComponent<Level>();
         collectedObjectManagerScript = PlayerObj.GetComponent<CollectedObjectManager>();
         animationControllerScript = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationController>();
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
         if(currentMoney < necessaryMoney)
         {
             GameOver();
+         
         }
         
         else
@@ -89,8 +92,11 @@ public class GameManager : MonoBehaviour
 
         animationControllerScript.PlayBossIdleAnimation();
         animationControllerScript.PlayRunAnimation();
-
+    
+        
         SetAssignmentGameScene();
+
+        cameraControllerScript.StartGamePos();
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.transform.rotation = new Quaternion(0, 0, 0, 0);
         isGameStarted = true;
@@ -124,6 +130,7 @@ public class GameManager : MonoBehaviour
         PlayerObj.GetComponent<PlayerMovementController>().enabled = true;
         PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
         animationControllerScript.PlayRunAnimation();
+        cameraControllerScript.StartGamePos();
     }
 
     public void NextLevel()
@@ -144,6 +151,7 @@ public class GameManager : MonoBehaviour
         isGameStarted = true;
         currentMoney = 0;
         moneyBarScript.SetCurrentMoney(0);
+        cameraControllerScript.StartGamePos();
     }
     public void GameOver()
     {
@@ -153,6 +161,7 @@ public class GameManager : MonoBehaviour
         isGameStarted = false;
         animationControllerScript.PlayBossYellingAnimation();
         animationControllerScript.PlayPrayAnimation();
+        cameraControllerScript.GameFinishPos();
     }
     public void LevelSuccessful() 
     {
@@ -161,6 +170,7 @@ public class GameManager : MonoBehaviour
         isGameStarted = false;
         animationControllerScript.PlayAJDanceAnimation();
         animationControllerScript.PlayBossDanceAnimation();
+        cameraControllerScript.GameFinishPos();
     }
 
     public void SetAssignmentGameScene()
@@ -182,6 +192,8 @@ public class GameManager : MonoBehaviour
         uiManagerScript.SetVisibleGameOverPanel();
         PlayerObj.GetComponent<PlayerMovementController>().enabled = false;
         isGameStarted = false;
+        collectedObjectManagerScript.DestroyAllCollectedObjects();
+
     }
 
 }

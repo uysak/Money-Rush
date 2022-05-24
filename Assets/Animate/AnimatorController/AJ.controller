@@ -128,6 +128,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isHaveMoney
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCollisionObstacle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7881714914490822201}
   m_Solo: 0
@@ -587,6 +590,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isHaveMoney
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCollisionObstacle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5507688895720112531}
   m_Solo: 0
@@ -611,6 +617,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: isGameStarted
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCollisionObstacle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7881714914490822201}

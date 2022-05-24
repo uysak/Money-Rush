@@ -22,7 +22,7 @@ public class Level : MonoBehaviour
         {
             totalMoneyPrice += CollectibleObjects.transform.GetChild(index).GetComponent<CollectibleObject>().getPrice();
         }
-        necessaryMoney = totalMoneyPrice / 100 * 80;
+        necessaryMoney = totalMoneyPrice / 100 * 40;
 
         Debug.Log("Total Money Price:" + totalMoneyPrice);
         Debug.Log("Calculated neccessary money " + necessaryMoney);

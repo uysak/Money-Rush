@@ -11,8 +11,8 @@ public class CollectedObjectManager : MonoBehaviour
     private List<GameObject> CollectedObjectList = new List<GameObject>();
     private Vector3 targetPos;
 
-    [SerializeField] float trackOffset;
-    [SerializeField] float trackOffset2;
+    [SerializeField] float trackOffsetBetweenObj;
+    [SerializeField] float trackOffsetBetweenPlayerAndObj;
 
     [SerializeField] GameObject MoneyBrokeParticle;
     [SerializeField] GameObject DollarSignParticle;
@@ -21,6 +21,7 @@ public class CollectedObjectManager : MonoBehaviour
 
     private GameObject CollectibleObject;
     private GameObject PrevCollectibleObject;
+    private GameObject PlayerObj;
 
     private int indexOfObject;
     private int lastGameObjectIndex;
@@ -29,8 +30,8 @@ public class CollectedObjectManager : MonoBehaviour
     void Start()
     {
         gameManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        trackOffset2 = -0.11f;
-        trackOffset = 0.92f;
+        trackOffsetBetweenPlayerAndObj = -0.11f;
+        trackOffsetBetweenObj = 0.92f;
     }
 
     // Update is called once per frame
@@ -45,15 +46,19 @@ public class CollectedObjectManager : MonoBehaviour
 
             if(index == 0)
             {
+                // (Mathf.Lerp(CollectibleObject.transform.position.x, this.transform.position.x, 1f)
                 CollectibleObject = CollectedObjectList[index].gameObject;
-                CollectibleObject.transform.position = new Vector3(Mathf.Lerp(CollectibleObject.transform.position.x, this.transform.position.x, 1f), this.transform.position.y, Mathf.Lerp(CollectibleObject.transform.position.z, this.transform.position.z + trackOffset2, 15 * Time.deltaTime));
+                PlayerObj = this.gameObject;
+
+                targetPos = new Vector3(PlayerObj.transform.position.x, PlayerObj.transform.position.y, Mathf.Lerp(CollectibleObject.transform.position.z, PlayerObj.transform.position.z + trackOffsetBetweenPlayerAndObj, 15 * Time.deltaTime));
+                CollectibleObject.transform.position = targetPos;
             }
             else
             {
                 CollectibleObject = CollectedObjectList[index].gameObject;
                 PrevCollectibleObject = CollectedObjectList[index - 1].gameObject;
 
-                targetPos = new Vector3(PrevCollectibleObject.transform.position.x, PrevCollectibleObject.transform.position.y, PrevCollectibleObject.transform.position.z + trackOffset);
+                targetPos = new Vector3(PrevCollectibleObject.transform.position.x, PrevCollectibleObject.transform.position.y, PrevCollectibleObject.transform.position.z + trackOffsetBetweenObj);
                 CollectibleObject.transform.position =  Vector3.Lerp(CollectibleObject.gameObject.transform.position, targetPos, 15 * Time.deltaTime);
             }
         }   
@@ -75,8 +80,8 @@ public class CollectedObjectManager : MonoBehaviour
         {
             CollectedObjectList[index].GetComponent<CollectibleObject>().SetBigger();
         }
+
         lastGameObjectIndex = CollectedObjectList.Count;
-        Debug.Log("lastgameobject: " + lastGameObjectIndex);
     }
 
     public void ObstacleCollision(GameObject CollectedObject)
@@ -95,10 +100,6 @@ public class CollectedObjectManager : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Not Last Obj");
-            //Debug.Log(" Object which collide" + CollectedObject.name);
-            //Debug.Log(" and its index: " + CollectedObject.GetComponent<CollectibleObject>().indexOnList);
-
             for(int i = CollectedObject.GetComponent<CollectibleObject>().indexOnList; i < CollectedObjectList.Count;i++)
             {
                 Debug.Log("Object which must destroy: " + CollectedObjectList[i].name);
@@ -110,8 +111,6 @@ public class CollectedObjectManager : MonoBehaviour
 
             lastGameObjectIndex = CollectedObjectList.Count;
         }
-
-        gameManagerScript.CheckPlayerRunOrCarry();
     }
 
     public void FinishLineCollision(GameObject CollectedObject)
@@ -127,5 +126,13 @@ public class CollectedObjectManager : MonoBehaviour
     public int getCollectedObjectCount()
     {
         return CollectedObjectList.Count;
+    }
+
+    public void DestroyAllCollectedObjects()
+    {
+        foreach(GameObject obj in CollectedObjectList)
+        {
+            obj.GetComponent<CollectibleObject>().SetSmall();
+        }
     }
 }
