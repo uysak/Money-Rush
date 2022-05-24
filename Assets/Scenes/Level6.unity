@@ -1452,7 +1452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2587,14 +2587,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1795996618}
+  - {fileID: 1361121813}
   - {fileID: 1352183789}
   - {fileID: 1408379156}
-  - {fileID: 1361121813}
   - {fileID: 18251138}
-  - {fileID: 665596764}
-  - {fileID: 358584830}
-  - {fileID: 27644414}
   - {fileID: 483252200}
+  - {fileID: 358584830}
+  - {fileID: 665596764}
+  - {fileID: 27644414}
   - {fileID: 1914266934}
   m_Father: {fileID: 0}
   m_RootOrder: 7

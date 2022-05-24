@@ -1745,6 +1745,8 @@ GameObject:
   - component: {fileID: 972900950}
   - component: {fileID: 972900949}
   - component: {fileID: 972900948}
+  - component: {fileID: 972900951}
+  - component: {fileID: 972900952}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1817,6 +1819,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.11, y: 0, z: 0}
+--- !u!114 &972900951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972900947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dba1f51f55fadc4ab11cab961437b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &972900952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972900947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093cb27d13a84a54590d2f08429dff07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: -0.54, y: 1.53, z: -3.53}
+  shakeFrequency: 0
 --- !u!1 &1035716776
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,26 +3056,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -189}
+  m_AnchoredPosition: {x: 0, y: -532}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1770783260 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1439982904055004304, guid: f7c62edca1d5cc044924a26b0bdfff73, type: 3}
-  m_PrefabInstance: {fileID: 1108985275}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1770783264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1770783260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3fc70488b68e54a9668f6787e7f624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1791359384
 GameObject:
   m_ObjectHideFlags: 0

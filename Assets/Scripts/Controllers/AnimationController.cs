@@ -25,7 +25,6 @@ public class AnimationController : MonoBehaviour
 
     public void PlayRunAnimation()
     {
-      //  playerAnimator = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>();
         playerAnimator.SetBool("isGameStarted", true);
         playerAnimator.SetBool("isHaveMoney", false);
         playerAnimator.SetBool("isGameFailed", false);
@@ -72,9 +71,9 @@ public class AnimationController : MonoBehaviour
         {
             BossObj = GameObject.FindGameObjectWithTag("Boss");
             bossAnimator = BossObj.GetComponent<Animator>();
-            bossAnimator.SetBool("isGameStarted", true);
-            bossAnimator.SetBool("Yelling", false);
         }
+        bossAnimator.SetBool("isGameStarted", true);
+        bossAnimator.SetBool("Yelling", false);
     }
 
     public void PlayBossDanceAnimation()
