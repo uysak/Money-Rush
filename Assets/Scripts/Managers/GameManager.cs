@@ -131,6 +131,8 @@ public class GameManager : MonoBehaviour
         PlayerObj.GetComponent<BoxCollider>().isTrigger = true;
         animationControllerScript.PlayRunAnimation();
         cameraControllerScript.StartGamePos();
+        currentMoney = 0;
+        moneyBarScript.SetCurrentMoney(currentMoney);
     }
 
     public void NextLevel()

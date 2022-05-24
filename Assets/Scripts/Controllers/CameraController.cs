@@ -34,11 +34,12 @@ public class CameraController : MonoBehaviour
     {
         offset = new Vector3(0.5f, 3.5f, -5f);
         this.gameObject.transform.rotation = Quaternion.Euler(19f, 0f, 0f);  // Quaternion.Slerp(this.transform.rotation,, 15 * Time.deltaTime); //Quaternion.Lerp(this.transform.rotation, new Quaternion(19.1f, 0f, 0f, 1), 15 * Time.deltaTime);
-
+        this.gameObject.GetComponent<Camera>().fieldOfView = 60;
     }
     public void GameFinishPos()
     {
-        offset = new Vector3(4.36f,2.46f,-6f);
+        offset = new Vector3(6f,2.46f,-6f);
         this.gameObject.transform.rotation = Quaternion.Euler(9, 336, 0);  //Quaternion.Slerp(this.transform.rotation,, 15 * Time.deltaTime);
+        this.gameObject.GetComponent<Camera>().fieldOfView = 75;
     }
 }
