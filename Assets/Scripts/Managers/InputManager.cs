@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class InputManager : MonoBehaviour
+
 {
     private Touch theTouch;
     private Vector2 touchStartPosition, touchEndPosition;
@@ -69,4 +71,5 @@ public class InputManager : MonoBehaviour
 
         return (val - iMin) * (oMax - oMin) / (iMax - iMin) + oMin;
     }
+
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class CameraController : MonoBehaviour
 {
     private GameObject PlayerObj;
@@ -25,9 +25,13 @@ public class CameraController : MonoBehaviour
 
     public void ShakeCamera()
     {
+        //this.GetComponent<Camera>().DOShakePosition(0.8f, 1f, 3,40, false);
+      
+        this.transform.position = this.transform.position + Random.insideUnitSphere * shakeFrequency;
+
         this.transform.position = this.transform.position + Random.insideUnitSphere * shakeFrequency;
         this.transform.position = this.transform.position + Random.insideUnitSphere * shakeFrequency;
-        this.transform.position = this.transform.position + Random.insideUnitSphere * shakeFrequency;
+
     }
 
     public void StartGamePos()

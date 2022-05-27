@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MoneyBarController : MonoBehaviour
 {
@@ -21,6 +22,6 @@ public class MoneyBarController : MonoBehaviour
     }
     public void SetCurrentMoney(int currentMoney)
     {
-        slider.value = currentMoney;
+        slider.DOValue(currentMoney, 1, false);
     }
 }

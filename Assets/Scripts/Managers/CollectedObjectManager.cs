@@ -87,7 +87,7 @@ public class CollectedObjectManager : MonoBehaviour
     public void ObstacleCollision(GameObject CollectedObject)
     {
         gameManagerScript.DecreaseScore(CollectedObject.GetComponent<CollectibleObject>().getPrice());
-
+        gameManagerScript.ShakeCamera();
         CollectedObject.GetComponent<CollectibleObject>().SetSmall();
         CollectedObjectList.Remove(CollectedObject);
 

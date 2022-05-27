@@ -107,6 +107,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ShakeCamera()
+    {
+        cameraControllerScript.ShakeCamera();
+    }
 
 
     public void IncreaseScore(int Price)
@@ -117,7 +121,8 @@ public class GameManager : MonoBehaviour
 
     public void DecreaseScore(int Price)
     {
-        currentMoney -= Price;
+        if( currentMoney > 0)
+            currentMoney -= Price;
         moneyBarScript.SetCurrentMoney(currentMoney);
     }
 
